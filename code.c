@@ -1,58 +1,34 @@
-	void Q2()  // Priority Schedulling Algorithm
+void Q3()    //First Come First Serve Algorithm
 	    {
-	        printf("\nPriority Scheduling Algorithm\n");
-	        int i,j,c,position,t,avg_wait,avg_turn;
-	        int Tot=0,bur1[20],p1[20],wait1[20],turn1[20],pr1[20];
-	        printf("Enter Total Number of Processes:");
-	        scanf("%d",&c);
-	        printf("\nEnter Burst Time and Priority:\n");
-	        for(i=0;i<c;i++)
+	        printf("\nFirst come First Serve Alhorithm\n");
+	        int n,bur2[20],wait2[20],turn2[20],avg_wait1=0,avg_turn1=0,i,j;
+	        printf("Enter total number of processes(maximum 20):");
+	        scanf("%d",&n);
+	        printf("\nEnter Process Burst Time:\n");
+	        for(i=0;i<n;i++)
 	        {
-	            printf("\nP[%d]\n",c+1);
-	            printf("The Burst Time is:");
-	            scanf("%d",&bur1[i]);
-	            printf("Priority is:");
-	            scanf("%d",&pr1[i]);
-	            p1[i]=c+1;           //It contains Process Number
+	            printf("P[%d]:",i+1);
+	            scanf("%d",&bur2[i]);
 	        }
-	        //sorting burst time, priority and process number in ascending order using selection sort
-	        for(i=0;i<c;i++)
+	        wait2[0]=0;    //waiting time for first process is 0
+	        //calculating waiting time
+	        for(i=1;i<n;i++)
 	        {
-	            position=c;
-	            for(j=i+1;j<c;j++)
-	            {
-	                if(pr1[j]<pr1[position])
-	                    position=j;
-	            }
-	            t=pr1[c];
-	            pr1[c]=pr1[position];
-	            pr1[position]=t;
-	            t=bur1[c];
-	            bur1[c]=bur1[position];
-	            bur1[position]=t;
-	            t=p1[c];
-	            p1[c]=p1[position];
-	            p1[position]=t;
-	        }
-	        wait1[0]=0;	//waiting time for first process is zero
-	        //calculate waiting time
-	        for(i=1;i<c;i++)
-	        {
-	            wait1[i]=0;
+	            wait2[i]=0;
 	            for(j=0;j<i;j++)
-	                wait1[i]+=bur1[j];
-	            Tot+=wait1[i];
+	                wait2[i]+=bur2[j];
 	        }
-	        avg_wait=Tot/c;      //average waiting time
-	        Tot=0;
-	        printf("\nProcess\tBurst Time\tWaiting Time\tTurnaround Time");
-	        for(i=0;i<c;i++)
+	        printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time");
+	        //calculating turnaround time
+	        for(i=0;i<n;i++)
 	        {
-	            turn1[i]=bur1[i]+wait1[i];     //calculate turnaround time
-	            Tot+=turn1[i];
-	            printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p1[i],bur1[i],wait1[i],turn1[i]);
+	            turn2[i]=bur2[i]+wait2[i];
+	            avg_wait1+=wait2[i];
+	            avg_turn1+=turn2[i];
+	            printf("\nP[%d]\t\t%d\t\t%d\t\t%d",i+1,bur2[i],wait2[i],turn2[i]);
 	        }
-	        avg_turn=Tot/c;     //average turnaround time
-	        printf("\n\nAverage Waiting Time=%d",avg_wait);
-	        printf("\nAverage Turnaround Time=%d\n",avg_turn);
+	        avg_wait1/=i;
+	        printf("\nThe Average Waiting Time is:%d",avg_wait1);
+	        avg_turn1/=i;
+	        printf("\nThe Average Turnaround Time is:%d",avg_turn1);
 	    }
